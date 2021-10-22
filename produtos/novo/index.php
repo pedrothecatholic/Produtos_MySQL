@@ -1,8 +1,8 @@
 <?php
 
-  session_start();
+session_start();
 
-  /*
+/*
   CONEXÃO COM O BANCO DE DADOS
   
   produto/novo
@@ -12,13 +12,13 @@
   /dabase/conexao.php
 
   */
-  require('../../database/conexao.php');
+require('../../database/conexao.php');
 
-  /*QUERY SQL*/
-  $sql = "SELECT * FROM tbl_categoria";
+/*QUERY SQL*/
+$sql = "SELECT * FROM tbl_categoria";
 
-  /*EXECUTAR A QUERY SQL NA BASE DE DADOS*/
-  $resultado = mysqli_query($conexao, $sql);
+/*EXECUTAR A QUERY SQL NA BASE DE DADOS*/
+$resultado = mysqli_query($conexao, $sql);
 
 ?>
 
@@ -52,41 +52,39 @@
           <ul>
 
             <?php
-            
-              if (isset($_SESSION["erros"])) {
-                
-                foreach ($_SESSION["erros"] as $erro) {
-                  
-                  echo "<li> $erro </li>";
 
-                }
+            if (isset($_SESSION["erros"])) {
 
-                unset($_SESSION["erros"]);
+              foreach ($_SESSION["erros"] as $erro) {
 
+                echo "<li> $erro </li>";
               }
-            
+
+              unset($_SESSION["erros"]);
+            }
+
             ?>
 
           </ul>
 
           <div class="input-group span2">
             <label for="descricao">Descrição</label>
-            <input type="text" name="descricao" id="descricao" >
+            <input type="text" name="descricao" id="descricao">
           </div>
 
           <div class="input-group">
             <label for="peso">Peso</label>
-            <input type="text" name="peso" id="peso" >
+            <input type="text" name="peso" id="peso">
           </div>
 
           <div class="input-group">
             <label for="quantidade">Quantidade</label>
-            <input type="text" name="quantidade" id="quantidade" >
+            <input type="text" name="quantidade" id="quantidade">
           </div>
 
           <div class="input-group">
             <label for="cor">Cor</label>
-            <input type="text" name="cor" id="cor" >
+            <input type="text" name="cor" id="cor">
           </div>
 
           <div class="input-group">
@@ -96,7 +94,7 @@
 
           <div class="input-group">
             <label for="valor">Valor</label>
-            <input type="text" name="valor" id="valor" >
+            <input type="text" name="valor" id="valor">
           </div>
 
           <div class="input-group">
@@ -107,19 +105,19 @@
           <div class="input-group">
 
             <label for="categoria">Categoria</label>
-            <select id="categoria" name="categoria" >
+            <select id="categoria" name="categoria">
               <option value="">SELECIONE</option>
-        
-                <!-- INICIO DA LISTAGEM DE CATEGORIAS VINDAS DO BANCO -->
-                <?php
-                
-                  while ($categoria = mysqli_fetch_array($resultado)) {
-   
-                ?>
-                <option value="<?php echo $categoria["id"]?>"><?php echo $categoria["descricao"]?></option>
-                <?php } ?>
-                <!-- FIM DA LISTAGEM DE CATEGORIAS VINDAS DO BANCO -->
-              
+
+              <!-- INICIO DA LISTAGEM DE CATEGORIAS VINDAS DO BANCO -->
+              <?php
+
+              while ($categoria = mysqli_fetch_array($resultado)) {
+
+              ?>
+                <option value="<?php echo $categoria["id"] ?>"><?php echo $categoria["descricao"] ?></option>
+              <?php } ?>
+              <!-- FIM DA LISTAGEM DE CATEGORIAS VINDAS DO BANCO -->
+
             </select>
 
           </div>
@@ -142,7 +140,7 @@
   <footer>
     SENAI 2021 - Todos os direitos reservados
   </footer>
-  
+
 </body>
 
 </html>

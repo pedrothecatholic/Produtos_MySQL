@@ -1,8 +1,6 @@
 <?php
 
-    /* REDIRECIONA O FLUXO DE NAVEGAÇÃO PARA O INICIO DA APLICAÇÃO 
+/* REDIRECIONA O FLUXO DE NAVEGAÇÃO PARA O INICIO DA APLICAÇÃO 
        NA PASTA DE PRODUTOS. O ARQUIVO INDEX DESSA PASTA RESOLVE A
        PÁGINA INICIAL DA APLICAÇÃO */
-    header('location: produtos/');
-
-?>
+header('location: produtos/');

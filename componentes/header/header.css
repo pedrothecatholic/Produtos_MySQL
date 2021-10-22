@@ -38,7 +38,6 @@
   width: 20px;
 }
 
-
 .header > figure {
   margin-top: 30px;
   padding: 5px;
@@ -118,7 +117,7 @@
 }
 
 .mensagens {
-  position: absolute; 
+  position: absolute;
   top: 65px;
   right: 0;
   padding: 15px;

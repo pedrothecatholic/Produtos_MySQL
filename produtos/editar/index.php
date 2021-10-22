@@ -5,13 +5,12 @@ require('../../database/conexao.php');
 $produtoId = $_GET['id'];
 
 /** RECUPERA OS DADOS DE PRODUTO */
-
 $sqlProduto = "SELECT * FROM tbl_produto WHERE id = $produtoId";
 $resultado = mysqli_query($conexao, $sqlProduto);
 $produto = mysqli_fetch_array($resultado);
 
 /** RECUPERA OS DADOS DE CATEGORIA */
-$sqlCategoria = "SELECT * FROM tbl_categoria"; 
+$sqlCategoria = "SELECT * FROM tbl_categoria";
 $resultado = mysqli_query($conexao, $sqlCategoria);
 
 ?>
@@ -41,11 +40,25 @@ $resultado = mysqli_query($conexao, $sqlCategoria);
 
           <input type="hidden" name="acao" value="editar" />
 
-          <input type="hidden" name="produtoId" value="<?php echo $produtoId?>" />
+          <input type="hidden" name="produtoId" value="<?php echo $produtoId ?>" />
 
           <h1>Editar Produto</h1>
 
           <ul>
+
+            <?php
+
+            if (isset($_SESSION["erros"])) {
+
+              foreach ($_SESSION["erros"] as $erro) {
+
+                echo "<li> $erro </li>";
+              }
+
+              unset($_SESSION["erros"]);
+            }
+
+            ?>
 
           </ul>
 
@@ -93,18 +106,16 @@ $resultado = mysqli_query($conexao, $sqlCategoria);
               <option value="">SELECIONE</option>
 
               <?php
-              
-              while ($categoria = mysqli_fetch_array($resultado)){
-              
+
+              while ($categoria = mysqli_fetch_array($resultado)) {
+
               ?>
 
-              <option value="<?php echo $categoria["id"]?>"
-              <?php $categoria["id"] == $produto["categoria_id"] ? "selected" : "" ?>
-              >
-            
-                <?php echo $categoria["descricao"]?>
-            
-              </option>
+                <option value="<?php echo $categoria["id"] ?>" <?php $categoria["id"] == $produto["categoria_id"] ? "selected" : "" ?>>
+
+                  <?php echo $categoria["descricao"] ?>
+
+                </option>
 
               <?php } ?>
 

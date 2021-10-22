@@ -6,7 +6,6 @@
 
     function validarCampos(){
 
-
         //ARRAY DAS MENSAGENS DE ERRO
         $erros = [];
 
@@ -46,7 +45,7 @@
 
         }
 
-        //VALIDAÇÃO DE COR
+        //VALIDAÇÃO DE TAMANHO
         if ($_POST["tamanho"] == "" || !isset($_POST["tamanho"])) {
             
             $erros[] = "O CAMPO TAMANHO É OBRIGATÓRIO";
@@ -190,10 +189,22 @@
 
         case 'editar':
             
-            /** ATUALIZANDO A IMAGEM DO PRODUTO */
-
             $produtoId = $_POST["produtoId"];
+            
+            /** PROCESSO DE VALIDAÇÃO */
+            $erros = validarCampos();
 
+            if (count($erros) > 0) {
+                
+                $_SESSION["erros"] = $erros;
+
+                header("location: editar/index.php?id=produtoId");
+
+                exit();
+
+            }
+            
+            /** ATUALIZANDO A IMAGEM DO PRODUTO */
             if ($_FILES["foto"]["error"] != UPLOAD_ERR_NO_FILE) {
                 
                 $sqlImagem = "SELECT imagem FROM tbl_produto WHERE id = $produtoId";
@@ -201,8 +212,23 @@
                 $resultado = mysqli_query($sqlImagem);
                 $produto = mysqli_fetch_array($resultado);
 
-                echo '/fotos/' . $produto["imagem"]; 
-                exit;
+                //echo '/fotos/' . $produto["imagem"]; 
+                //exit;
+
+                //EXCLUSÃO DA FOTO (ARQUIVO) ANTIGA DA PASTA
+                unlink("./fotos/" . $produto["imagem"]);
+                
+                //EXTRAI ENTENSÃO DO ARQUIVO DE IMAGEM
+                $nomeArquivo = $_FILES["foto"]["name"];
+
+                //RECUPERA NOME ORIGINAL 
+                $extensao = pathinfo($nomeArquivo, PATHINFO_EXTENSION);
+
+                //DEFINE UM NOME ALEATORIO PARA A IMAGEM QUE SERÁ ARMAZENADA NA PASTA "fotos"
+                $novoNomeArquivo = md5(microtime()) . ".$extensao";
+
+                //REALIZAMOS O UPLOAD DA IMAGEM COM O NOVO NOME
+                move_uploaded_file($_FILES["foto"]["tmp_name"], "fotos/$novoNomeArquivo");
 
             }
             
@@ -220,7 +246,26 @@
             $desconto = $_POST["desconto"];
             $categoriaId = $_POST["categoria"];
 
+            /** MONTAGEM E EXECUÇÃO DA INSTRUÇÃO SQL DE UPDATE */
 
+            $sqlUpdate = "UPDATE tbl_produto SET 
+                            descricao = '$descricao' , 
+                            peso = $peso, 
+                            quantidade = $quantidade,
+                            cor = '$cor', 
+                            tamanho = '$tamanho',
+                            valor = $valor,
+                            desconto = $desconto,
+                            categoria_id = $categoriaId";
+
+            //VERIFICA SE HÁ IMAGEM NOVA PARA ATUALIZAR
+            $sqlUpdate = isset($novoNomeArquivo) ? ", imagem = '$novoNomeArquivo'";
+
+            $sqlUpdate .= "WHERE id = $produtoId";
+            
+            $resultado = mysqli_query($conexao, $sqlUpdate);
+
+            header("location: index.php");
 
             break;
 

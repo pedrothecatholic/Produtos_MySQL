@@ -4,18 +4,17 @@ session_start();
 require('../database/conexao.php');
 
 /*FUNÇÃO DE VALIDAÇÃO*/
-function validaCampos(){
+function validaCampos()
+{
 
     $erros = [];
 
-    if(!isset($_POST['descricao']) || $_POST['descricao'] == ""){
+    if (!isset($_POST['descricao']) || $_POST['descricao'] == "") {
 
         $erros[] = "O campo descrição é de preenchimento obrigatório";
-
     }
 
     return $erros;
-
 }
 
 /*
@@ -33,14 +32,13 @@ switch ($_POST['acao']) {
         $erros = validaCampos();
 
         //VERIFICAR SE EXISTEM ERROS:
-        if(count($erros) > 0){
+        if (count($erros) > 0) {
 
             $_SESSION["erros"] = $erros;
 
             header('location: index.php');
 
             exit();
-
         }
 
         // echo 'INSERIR';exit;
@@ -69,37 +67,33 @@ switch ($_POST['acao']) {
 
         break;
 
-        case 'deletar':
+    case 'deletar':
 
-            $categoriaID = $_POST['categoriaId'];
+        $categoriaID = $_POST['categoriaId'];
 
-            $sql = "DELETE FROM tbl_categoria WHERE id = $categoriaID";
+        $sql = "DELETE FROM tbl_categoria WHERE id = $categoriaID";
 
-            $resultado = mysqli_query($conexao, $sql);
+        $resultado = mysqli_query($conexao, $sql);
 
-            header('location: index.php');
+        header('location: index.php');
 
-            break;
+        break;
 
-        case 'editar':
+    case 'editar':
 
-            $id = $_POST["id"];
-            $descricao = $_POST["descricao"];
+        $id = $_POST["id"];
+        $descricao = $_POST["descricao"];
 
-            $sql = "UPDATE tbl_categoria SET descricao = '$descricao' WHERE id = $id";
-            // echo $sql; exit;
-            
-            $resultado = mysqli_query($conexao, $sql);
+        $sql = "UPDATE tbl_categoria SET descricao = '$descricao' WHERE id = $id";
+        // echo $sql; exit;
 
-            header('location: index.php');
+        $resultado = mysqli_query($conexao, $sql);
 
-            break;
-    
+        header('location: index.php');
+
+        break;
+
     default:
         # code...
         break;
 }
-
-
-
-?>

@@ -1,20 +1,5 @@
-<?php
 
-$raiz = "/pedrohenrique/devweb/aula15/projeto-icatalogo-main";
-
-?>
-
-<link href="<?php echo $raiz ?>/componentes/header/header.css" rel="stylesheet" />
-
-<header class="header">
-
-    <figure>
-        <a href="../produtos">
-            <img src="<?php echo $raiz ?>/imgs/logo.png" />
-        </a>
-    </figure>
-
-    <?php
+ <?php
     if (!isset($_SESSION["usuarioId"])) {
     ?>
         <nav>
@@ -26,7 +11,7 @@ $raiz = "/pedrohenrique/devweb/aula15/projeto-icatalogo-main";
             <h1>Fazer Login</h1>
             <form method="POST" action="/componentes/header/acoesLogin.php">
                 <input type="hidden" name="acao" value="login" />
-                <input type="text" name="usuario" placeholder="Usu√°rio" />
+                <input type="text" name="usuario" placeholder="Usu·rio" />
                 <input type="password" name="senha" placeholder="Senha" />
                 <button>Entrar</button>
             </form>
@@ -46,7 +31,7 @@ $raiz = "/pedrohenrique/devweb/aula15/projeto-icatalogo-main";
     }
     ?>
 
-</header>
+########################################################################
 
 <script lang="javascript">
     document.querySelector("#menu-admin").addEventListener("click", toggleLogin);
@@ -65,7 +50,7 @@ $raiz = "/pedrohenrique/devweb/aula15/projeto-icatalogo-main";
             form.style.display = "flex";
             containerLogin.style.opacity = 1;
             containerLogin.style.height = "200px";
-            //se n√£o, oculta
+            //se n„o, oculta
         } else {
             h1Form.style.display = "none";
             form.style.display = "none";
