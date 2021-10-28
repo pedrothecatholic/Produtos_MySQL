@@ -209,7 +209,7 @@
                 
                 $sqlImagem = "SELECT imagem FROM tbl_produto WHERE id = $produtoId";
 
-                $resultado = mysqli_query($sqlImagem);
+                $resultado = mysqli_query($conexao, $sqlImagem);
                 $produto = mysqli_fetch_array($resultado);
 
                 //echo '/fotos/' . $produto["imagem"]; 
@@ -259,9 +259,9 @@
                             categoria_id = $categoriaId";
 
             //VERIFICA SE HÁ IMAGEM NOVA PARA ATUALIZAR
-            $sqlUpdate = isset($novoNomeArquivo) ? ", imagem = '$novoNomeArquivo'";
+            $sqlUpdate = isset($novoNomeArquivo) ? ", imagem = '$novoNomeArquivo'" : "";
 
-            $sqlUpdate .= "WHERE id = $produtoId";
+            $sqlUpdate = "WHERE id = $produtoId";
             
             $resultado = mysqli_query($conexao, $sqlUpdate);
 

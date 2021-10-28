@@ -9,7 +9,7 @@ $raiz = "/pedrohenrique/devweb/aula15/projeto-icatalogo-main";
 <header class="header">
 
     <figure>
-        <a href="../produtos">
+        <a href="<?php echo $raiz?>/produtos">
             <img src="<?php echo $raiz ?>/imgs/logo.png" />
         </a>
     </figure>
