@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $raiz = "/pedrohenrique/devweb/aula15/projeto-icatalogo-main";
 
 ?>
@@ -9,7 +11,7 @@ $raiz = "/pedrohenrique/devweb/aula15/projeto-icatalogo-main";
 <header class="header">
 
     <figure>
-        <a href="<?php echo $raiz?>/produtos">
+        <a href="<?php echo $raiz ?>/produtos">
             <img src="<?php echo $raiz ?>/imgs/logo.png" />
         </a>
     </figure>
@@ -17,6 +19,7 @@ $raiz = "/pedrohenrique/devweb/aula15/projeto-icatalogo-main";
     <?php
     if (!isset($_SESSION["usuarioId"])) {
     ?>
+
         <nav>
             <ul>
                 <a id="menu-admin">Administrar</a>
@@ -24,7 +27,7 @@ $raiz = "/pedrohenrique/devweb/aula15/projeto-icatalogo-main";
         </nav>
         <div id="container-login" class="container-login">
             <h1>Fazer Login</h1>
-            <form method="POST" action="/componentes/header/acoesLogin.php">
+            <form method="POST" action="<?php echo $raiz ?>/componentes/header/acoesLogin.php">
                 <input type="hidden" name="acao" value="login" />
                 <input type="text" name="usuario" placeholder="Usuário" />
                 <input type="password" name="senha" placeholder="Senha" />
@@ -73,5 +76,4 @@ $raiz = "/pedrohenrique/devweb/aula15/projeto-icatalogo-main";
             containerLogin.style.height = "0px";
         }
     }
-
 </script>
